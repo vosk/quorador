@@ -37,12 +37,12 @@ public class PathPlanningAstar {
             System.out.println(k);
             if(k.equals(j))
                 return steps;
-            for(Index n:k.neighbours(state)){
-                if(pathMap.connected(k,n)){
-                    pathMap.removeEdge(k,n);
-                    queue.offer(n);
-                }
-            }
+//            for(Index n:k.neighbours(state)){
+//                if(pathMap.connected(k,n)){
+//                    pathMap.removeEdge(k,n);
+//                    queue.offer(n);
+//                }
+//            }
         }
         return -1;
     }

@@ -167,7 +167,7 @@ public class BitSetGrid implements Grid {
         StringBuilder buf = new StringBuilder();
         for (int i = size - 1; i >= 0; i--) {
             for (int j = 0; j < size; j++) {
-                buf.append(bitSet.get(SpaceFilling.transform(new Index(i, j), size)) > 0 ? 1 : 0);
+                buf.append(bitSet.get(SpaceFilling.transform(Index.get(i, j), size)) > 0 ? 1 : 0);
             }
             buf.append("\n");
         }

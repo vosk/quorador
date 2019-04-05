@@ -1,16 +1,19 @@
 package game.state.basic;
 
-import game.state.GameState;
-import java.util.Arrays;
+import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Index {
     private  final int i;
     private  final int j;
-    public final static Index ZERO= new Index(0,0);
+    public final static Index ZERO;
+    private final static Map<Integer,Index> cache;
 
+    static {
+        cache= new ConcurrentHashMap<>();
+        ZERO = get(0,0);
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -26,10 +29,7 @@ public class Index {
         return Objects.hash(i, j);
     }
 
-    public Index(){
-        this(0,0);
-    }
-    public Index(int i, int j) {
+    private Index(int i, int j) {
         this.i = i;
         this.j = j;
     }
@@ -43,53 +43,38 @@ public class Index {
     }
 
     public Index up(){
-        return new Index(i,j+1);
+        return  get(i,j+1);
     }
     public Index down(){
-        return new Index(i,j-1);
-    }
-    public Index left(){
-        return new Index(i-1,j);
-    }
-    public Index right(){
-        return new Index(i+1,j);
-    }
-    public Index next(GameState state){
-        if(!isValid(state))
-            throw new IllegalArgumentException("index out of bounds for this state");
-
-        Index u=up();
-        if(u.isValid(state ))
-            return u;
-
-        Index l=new Index(i,0).right();
-        if(l.isValid(state))
-            return l;
-
+        if(j>0){
+            return get(i,j-1);
+        }
         return null;
 
     }
-
-    public Set<Index> neighbours(GameState state){
-        return Arrays.stream(new Index[] { up(),down(),left(),right()})
-                .filter(e->e.isValid(state))
-                .collect(Collectors.toSet());
+    public Index left(){
+        if(i>0){
+            return get(i-1,0);
+        }
+        return null;
     }
-
-
-
-    private boolean isValid(GameState state) {
-        int boardSize=state.getBoardSize();
-        return i>=0&&j>=0&& j<boardSize&& i <boardSize;
-    }
-
-
-    public boolean hasNext(GameState state) {
-        return i<state.getBoardSize()-1||j<state.getBoardSize()-1;
+    public Index right(){
+        return get(i+1,j);
     }
 
     public int manhattanDistance(Index other) {
         return Math.abs(this.i-other.i)+Math.abs(this.j-other.j);
+    }
+
+    public static int cantorPairingFunction(int i, int j){
+        return (i+j)*(i+j+1)/2+i;
+    }
+    public static Index get(int i, int j){
+        int map=cantorPairingFunction(i,j);
+        if(!cache.containsKey(map)){
+            cache.put(map, new Index(i,j));
+        }
+        return cache.get(map);
     }
 
     @Override

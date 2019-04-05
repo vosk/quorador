@@ -27,10 +27,10 @@ class Masks {
                 data.not();
                 return data;
             case LEFT:
-                motionFunction= (i)-> new Index(i,0);
+                motionFunction= (i)->  Index.get(i,0);
                 break;
             case RIGHT:
-                motionFunction= (i) -> new Index(i,size-1);
+                motionFunction= (i) -> Index.get(i,size-1);
                 break;
         }
         for(int i=0;i<size;i++)
