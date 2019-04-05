@@ -1,7 +1,7 @@
-package game.state;
+package game.state.basic;
 
+import game.state.GameState;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;

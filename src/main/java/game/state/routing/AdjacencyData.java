@@ -1,6 +1,6 @@
 package game.state.routing;
 
-import game.state.Index;
+import game.state.basic.Index;
 
 public interface AdjacencyData extends Cloneable {
     void initGame();

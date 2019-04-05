@@ -1,8 +1,6 @@
 package game.state;
 
-import game.state.GameState;
-import game.state.Move;
-import game.state.Player;
+import game.state.basic.Move;
 
 public interface GameStateValidator {
 

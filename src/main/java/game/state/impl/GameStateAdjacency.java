@@ -1,6 +1,8 @@
 package game.state.impl;
 
 import game.state.*;
+import game.state.basic.Index;
+import game.state.basic.Move;
 import game.state.routing.AdjacencyMap;
 
 import java.util.PriorityQueue;
@@ -56,29 +58,29 @@ public class GameStateAdjacency implements GameState {
     public boolean isConnected(Index i, Index j) {
         return map.connected(i,j);
     }
-
-    @Override
-    public int isTransitivelyConnected(Index i, Index j) {
-        AdjacencyMap pathMap=this.map.clone();
-        PriorityQueue<Index> queue= new PriorityQueue<>((e1,e2)->e1.manhattanDistance(j)-e2.manhattanDistance(j) );
-
-        queue.add(i);
-        int steps=0;
-        while(!queue.isEmpty()){
-            Index k= queue.poll();
-            steps++;
-            System.out.println(k);
-            if(k.equals(j))
-                return steps;
-            for(Index n:k.neighbours(this)){
-                if(pathMap.connected(k,n)){
-                    pathMap.removeEdge(k,n);
-                    queue.offer(n);
-                }
-            }
-        }
-       return -1;
-    }
+//
+//    @Override
+//    public int isTransitivelyConnected(Index i, Index j) {
+//        AdjacencyMap pathMap=this.map.clone();
+//        PriorityQueue<Index> queue= new PriorityQueue<>((e1,e2)->e1.manhattanDistance(j)-e2.manhattanDistance(j) );
+//
+//        queue.add(i);
+//        int steps=0;
+//        while(!queue.isEmpty()){
+//            Index k= queue.poll();
+//            steps++;
+//            System.out.println(k);
+//            if(k.equals(j))
+//                return steps;
+//            for(Index n:k.neighbours(this)){
+//                if(pathMap.connected(k,n)){
+//                    pathMap.removeEdge(k,n);
+//                    queue.offer(n);
+//                }
+//            }
+//        }
+//       return -1;
+//    }
 
     public void attachHeuristic(Heuristic heuristic) {
 

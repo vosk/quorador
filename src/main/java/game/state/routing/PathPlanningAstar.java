@@ -1,7 +1,7 @@
 package game.state.routing;
 
 import game.state.GameState;
-import game.state.Index;
+import game.state.basic.Index;
 import game.state.IndexHash;
 
 import java.util.PriorityQueue;

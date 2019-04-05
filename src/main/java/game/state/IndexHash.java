@@ -1,6 +1,6 @@
 package game.state;
 
-import game.state.impl.GameStateAdjacency;
+import game.state.basic.Index;
 
 public class IndexHash {
     private final GameState gameState;

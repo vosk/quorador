@@ -1,9 +1,9 @@
 package game.state;
 
-final public class Constants {
+public final class Constants {
     private Constants() {
 
     }
-    public final static int BoardSize=9;
+    public  static final int BOARDSIZE=9;
 
 }

@@ -1,5 +1,8 @@
 package game.state;
 
+import game.state.basic.Index;
+import game.state.basic.Move;
+
 public interface GameState {
 
     void  initGame();

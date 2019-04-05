@@ -2,7 +2,7 @@ package game.state.impl;
 
 import game.state.GameState;
 import game.state.GameStateValidator;
-import game.state.Move;
+import game.state.basic.Move;
 import game.state.Player;
 
 public class GameStateValidatorImpl implements GameStateValidator {

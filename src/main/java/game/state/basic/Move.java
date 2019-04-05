@@ -1,4 +1,4 @@
-package game.state;
+package game.state.basic;
 
 public class Move {
     public Move(Type type, Index start, Index end) {
