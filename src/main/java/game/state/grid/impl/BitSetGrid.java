@@ -32,9 +32,9 @@ public class BitSetGrid implements Grid {
     }
 
     @Override
-    public void get(Index index) {
+    public boolean get(Index index) {
 
-        bitSet.get(SpaceFilling.transform(index, size));
+        return bitSet.get(SpaceFilling.transform(index, size))>0;
     }
 
     @Override
@@ -63,8 +63,14 @@ public class BitSetGrid implements Grid {
 
     @Override
     public Grid shift(Direction dir) {
-
         prepareMasks();
+        shift(this.bitSet,masks, dir, size);
+
+        return this;
+    }
+
+    private static void shift(ShiftableBitSet set, Masks masks, Direction dir, int size){
+
         int shiftAmount = 0;
         switch (dir) {
             case RIGHT:
@@ -80,11 +86,9 @@ public class BitSetGrid implements Grid {
                 shiftAmount = size;
                 break;
         }
-        bitSet.and(masks.moveMasks.get(dir));
-        bitSet.shiftLeft(shiftAmount);
-        return this;
+        set.and(masks.moveMasks.get(dir));
+        set.shiftLeft(shiftAmount);
     }
-
     private void assertType(Grid grid) {
 
         if (!(grid instanceof BitSetGrid)) {
@@ -120,6 +124,33 @@ public class BitSetGrid implements Grid {
     public Grid not() {
 
         this.bitSet.not();
+        return this;
+    }
+
+    @Override
+    public Grid fillFlood(Index index) {
+        prepareMasks();
+        ShiftableBitSet grow=this.bitSet.clone();
+        ShiftableBitSet stopMask=this.bitSet.clone();
+
+        grow.clear();
+        grow.set(SpaceFilling.transform(index,size));
+
+        stopMask.not();
+
+        grow.and(stopMask);
+
+        for(int i=0;i<size*2;i++){
+
+            for(Direction dir: Direction.values()){
+                ShiftableBitSet cpy=grow.clone();
+                shift(cpy,masks,dir,size);
+                cpy.and(stopMask);
+                grow.or(cpy);
+            }
+        }
+        this.bitSet.or(grow);
+
         return this;
     }
 

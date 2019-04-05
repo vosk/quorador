@@ -5,7 +5,7 @@ import game.state.motion.Direction;
 
 public interface Grid extends  Cloneable{
     int getSize();
-    void get(Index index);
+    boolean get(Index index);
     void fill(Index index);
     void clear(Index index);
     void set(Index index);
@@ -15,4 +15,5 @@ public interface Grid extends  Cloneable{
     Grid or( Grid grid);
     Grid xor(Grid grid);
     Grid not();
+    Grid fillFlood(Index index);
 }
