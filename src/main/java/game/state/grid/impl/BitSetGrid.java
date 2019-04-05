@@ -22,7 +22,7 @@ public class BitSetGrid implements Grid {
 
         this.size = otherGrid.size;
         this.masks = otherGrid.masks;
-        this.bitSet = bitSet.clone();
+        this.bitSet = otherGrid.bitSet.clone();
     }
 
     @Override

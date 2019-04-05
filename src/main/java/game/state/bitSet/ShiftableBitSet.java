@@ -162,7 +162,7 @@ public class ShiftableBitSet implements Cloneable {
         }
         return buf.toString();
     }
-
+    @Override
     public ShiftableBitSet clone() {
 
         return new ShiftableBitSet(this);
